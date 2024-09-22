@@ -16,7 +16,7 @@ class CustomButton extends StatelessWidget {
             style: ButtonStyle(
               backgroundColor: const WidgetStatePropertyAll(Colors.redAccent),
               shape: WidgetStatePropertyAll(
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
             ),
             onPressed: onTap,
             child: Text(
