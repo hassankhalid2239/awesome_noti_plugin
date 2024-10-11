@@ -120,4 +120,100 @@ class NotificationService {
           : null,
     );
   }
+
+  // custom schedule
+
+  static Future<void> showScheduleNotification({
+    required final String title,
+    required final String body,
+    final String? summary,
+    final Map<String, String>? payload,
+    final ActionType actionType = ActionType.Default,
+    final NotificationLayout notificationLayout = NotificationLayout.Default,
+    final NotificationCategory? category,
+    final String? bigPicture,
+    final List<NotificationActionButton>? actionButtons,
+    final bool scheduled = false,
+    final DateTime? date,
+  }) async {
+    assert(!scheduled || (scheduled && date != null));
+
+    await AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: -1,
+        channelKey: 'high_importance_channel',
+        title: title,
+        body: body,
+        actionType: actionType,
+        notificationLayout: notificationLayout,
+        summary: summary,
+        category: category,
+        payload: payload,
+        bigPicture: bigPicture,
+      ),
+      actionButtons: actionButtons,
+      schedule: scheduled
+          ? NotificationCalendar(
+        year: date?.year,
+        month: date?.month,
+        day: date?.day,
+        hour: date?.hour,
+        minute: date?.minute,
+        second: date?.second,
+        weekday: date?.weekday,
+        millisecond: 0,
+        repeats: false, // Agar repeat karna chahte hain to true kar dein
+      )
+          : null,
+    );
+  }
+
+
+
+
+
+  static Future<void> showScheduleAlert({
+    required final String title,
+    required final String body,
+    final String? summary,
+    final Map<String, String>? payload,
+    final ActionType actionType = ActionType.Default,
+    final NotificationLayout notificationLayout = NotificationLayout.Default,
+    final NotificationCategory? category,
+    final String? bigPicture,
+    final List<NotificationActionButton>? actionButtons,
+    final bool scheduled = false,
+    final DateTime? date,
+    final int hour=0,
+    final int min=0
+  }) async {
+    assert(!scheduled || (scheduled && date != null));
+
+    await AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: -1,
+        channelKey: 'high_importance_channel',
+        title: title,
+        body: body,
+        actionType: actionType,
+        notificationLayout: notificationLayout,
+        summary: summary,
+        category: category,
+        payload: payload,
+        bigPicture: bigPicture,
+      ),
+      actionButtons: actionButtons,
+      schedule: scheduled
+          ? NotificationCalendar(
+        year: date?.year,
+        month: date?.month,
+        day: date?.day,
+        hour: hour,
+        minute: min,
+        repeats: false, // Agar repeat karna chahte hain to true kar dein
+      )
+          : null,
+    );
+  }
+
 }
