@@ -33,7 +33,7 @@ class NotificationService {
     );
 
     await AwesomeNotifications().isNotificationAllowed().then(
-          (isAllowed) async {
+      (isAllowed) async {
         if (!isAllowed) {
           await AwesomeNotifications().requestPermissionToSendNotifications();
         }
@@ -72,7 +72,6 @@ class NotificationService {
     debugPrint('onActionReceivedMethod');
     final payload = receivedAction.payload ?? {};
     if (payload["navigate"] == "true") {
-
       MyApp.navigatorKey.currentState?.push(
         MaterialPageRoute(
           builder: (_) => const SecondScreen(),
@@ -112,11 +111,11 @@ class NotificationService {
       actionButtons: actionButtons,
       schedule: scheduled
           ? NotificationInterval(
-        interval: interval,
-        timeZone:
-        await AwesomeNotifications().getLocalTimeZoneIdentifier(),
-        preciseAlarm: true,
-      )
+              interval: interval,
+              timeZone:
+                  await AwesomeNotifications().getLocalTimeZoneIdentifier(),
+              preciseAlarm: true,
+            )
           : null,
     );
   }
@@ -154,39 +153,34 @@ class NotificationService {
       actionButtons: actionButtons,
       schedule: scheduled
           ? NotificationCalendar(
-        year: date?.year,
-        month: date?.month,
-        day: date?.day,
-        hour: date?.hour,
-        minute: date?.minute,
-        second: date?.second,
-        weekday: date?.weekday,
-        millisecond: 0,
-        repeats: false, // Agar repeat karna chahte hain to true kar dein
-      )
+              year: date?.year,
+              month: date?.month,
+              day: date?.day,
+              hour: date?.hour,
+              minute: date?.minute,
+              second: date?.second,
+              weekday: date?.weekday,
+              millisecond: 0,
+              repeats: false, // Agar repeat karna chahte hain to true kar dein
+            )
           : null,
     );
   }
 
-
-
-
-
-  static Future<void> showScheduleAlert({
-    required final String title,
-    required final String body,
-    final String? summary,
-    final Map<String, String>? payload,
-    final ActionType actionType = ActionType.Default,
-    final NotificationLayout notificationLayout = NotificationLayout.Default,
-    final NotificationCategory? category,
-    final String? bigPicture,
-    final List<NotificationActionButton>? actionButtons,
-    final bool scheduled = false,
-    final DateTime? date,
-    final int hour=0,
-    final int min=0
-  }) async {
+  static Future<void> showScheduleAlert(
+      {required final String title,
+      required final String body,
+      final String? summary,
+      final Map<String, String>? payload,
+      final ActionType actionType = ActionType.Default,
+      final NotificationLayout notificationLayout = NotificationLayout.Default,
+      final NotificationCategory? category,
+      final String? bigPicture,
+      final List<NotificationActionButton>? actionButtons,
+      final bool scheduled = false,
+      final DateTime? date,
+      final int hour = 0,
+      final int min = 0}) async {
     assert(!scheduled || (scheduled && date != null));
 
     await AwesomeNotifications().createNotification(
@@ -205,15 +199,14 @@ class NotificationService {
       actionButtons: actionButtons,
       schedule: scheduled
           ? NotificationCalendar(
-        year: date?.year,
-        month: date?.month,
-        day: date?.day,
-        hour: hour,
-        minute: min,
-        repeats: false, // Agar repeat karna chahte hain to true kar dein
-      )
+              year: date?.year,
+              month: date?.month,
+              day: date?.day,
+              hour: hour,
+              minute: min,
+              repeats: false, // Agar repeat karna chahte hain to true kar dein
+            )
           : null,
     );
   }
-
 }

@@ -73,7 +73,8 @@ class MyAlert extends StatelessWidget {
               Obx(() {
                 return Text(
                   '${_stateController.date.value.hour}:${_stateController.date.value.minute}:${_stateController.date.value.second}',
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20),
                 );
               }),
               const SizedBox(

@@ -1,8 +1,8 @@
 import 'package:awesome_noti_plugin/alert.dart';
+import 'package:awesome_noti_plugin/back_task_screen.dart';
 import 'package:awesome_noti_plugin/custom_button.dart';
 import 'package:awesome_noti_plugin/date_screen.dart';
 import 'package:awesome_noti_plugin/state_conntroller.dart';
-import 'package:awesome_noti_plugin/stop_watch%20screen.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime dt = DateTime.now();
-    print(dt.weekday);
+    Get.snackbar('Debug Print', dt.weekday.toString());
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.white,
@@ -50,22 +50,26 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DateScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DateScreen()));
               },
-              icon: Icon(Icons.date_range_sharp)),
+              icon: const Icon(Icons.date_range_sharp)),
           IconButton(
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MyAlert()));
               },
-              icon: Icon(Icons.add_alert)),
+              icon: const Icon(Icons.add_alert)),
           IconButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => StopwatchScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const BackTaskScreen()));
               },
-              icon: Icon(Icons.timer)),
+              icon: const Icon(Icons.timer)),
         ],
       ),
       body: Center(
@@ -162,7 +166,6 @@ class HomeScreen extends StatelessWidget {
                 CustomButton(
                   title: "Scheduled Notification after 5s",
                   onTap: () async {
-                    DateTime dt = DateTime(DateTime.now().year);
                     await NotificationService.showScheduleNotification(
                       title: "Scheduled Notification",
                       body: "Notification was fired after 5 seconds",
@@ -171,17 +174,26 @@ class HomeScreen extends StatelessWidget {
                     );
                   },
                 ),
-                SizedBox(height: 15,),
-                CustomButton(title: 'Start Periodic WorkManager', onTap: (){
-                  Workmanager().registerPeriodicTask('Task1', 'Backup',frequency: Duration(minutes: 15));
-                  _stateController.runningTask.value=true;
-                }),
-                SizedBox(height: 15,),
+                const SizedBox(
+                  height: 15,
+                ),
+                CustomButton(
+                    title: 'Start Periodic WorkManager',
+                    onTap: () {
+                      Workmanager().registerPeriodicTask('Task1', 'Backup',
+                          frequency: const Duration(minutes: 15));
+                      _stateController.runningTask.value = true;
+                    }),
+                const SizedBox(
+                  height: 15,
+                ),
 
-                CustomButton(title: 'Cancel Periodic WorkManager', onTap: (){
-                  Workmanager().cancelByUniqueName('Task1');
-                  _stateController.runningTask.value=false;
-                })
+                CustomButton(
+                    title: 'Cancel Periodic WorkManager',
+                    onTap: () {
+                      Workmanager().cancelByUniqueName('Task1');
+                      _stateController.runningTask.value = false;
+                    })
               ],
             ),
           ),
