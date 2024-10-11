@@ -1,8 +1,7 @@
 import 'package:awesome_noti_plugin/state_conntroller.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import 'custom_button.dart';
 import 'notification_services.dart';
 
@@ -51,8 +50,12 @@ class MyAlert extends StatelessWidget {
   setTime(String tim) {
     String hour24 = convertTo24HourFormat(tim);
     spreadHourMinute(hour24);
-    print('hour:$hour');
-    print('Minute:$minute');
+    if (kDebugMode) {
+      print('hour:$hour');
+    }
+    if (kDebugMode) {
+      print('Minute:$minute');
+    }
   }
 
   @override
@@ -70,20 +73,20 @@ class MyAlert extends StatelessWidget {
               Obx(() {
                 return Text(
                   '${_stateController.date.value.hour}:${_stateController.date.value.minute}:${_stateController.date.value.second}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 );
               }),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               TextField(
                 controller: userTime,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     hintText: 'Ex: 12:29 am',
                     label: Text('Time'),
                     border: OutlineInputBorder()),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               CustomButton(
